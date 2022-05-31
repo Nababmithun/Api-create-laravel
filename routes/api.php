@@ -16,3 +16,18 @@ use App\Http\Controllers\UserController;
 */
 
 Route::post('registration', [UserController::class, 'register']);
+
+Route::group([
+    'prefix' => 'auth'
+],
+ function()
+ {
+   Route::post('login','AuthController@login');
+   Route::post('registration','AuthCintroller@register');
+ }
+);
+
+Route::middleware('auth_api')->get('/user',function(Request $request)
+{
+  return $request->user();
+});
